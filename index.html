@@ -12,10 +12,31 @@
       display: flex;
       justify-content: center;
     }
-
+    ::-webkit-scrollbar {
+            width: 7px;
+        }
+  
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #ecf0f1; 
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #0b1734; 
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #0b1734; 
+        }
     #message-container {
+      border: 1px solid black;
       width: 80%;
       max-width: 1200px;
+      height: 85vh;
+      margin: 10px 0;
+      overflow-y: auto;
     }
 
     #message-container div {
@@ -29,14 +50,35 @@
 
     #send-container {
       position: fixed;
-      padding-bottom: 30px;
+      margin-bottom: 30px;
+      padding: 10px;
       bottom: 0;
       background-color: white;
       max-width: 1200px;
       width: 80%;
       display: flex;
     }
-
+    #name{
+      width: 15%;
+      padding: 6px;
+      font-size: 20px;
+      border: 2px solid black;
+    }
+    #message{
+      width: 75%;
+      margin-left: 10px;
+      padding: 6px;
+      font-size: 20px;
+      border: 2px solid #192a56;
+    }
+    #send-btn{
+      width:10%;
+      border: none;
+      background-color:#192a56;
+      color:#fff;
+      margin-left: 10px;
+      border: 2px solid #192a56;
+    }
     #message-input {
       flex-grow: 1;
     }
