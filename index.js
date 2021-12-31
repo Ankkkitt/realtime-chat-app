@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -24,6 +24,6 @@ io.sockets.on('connection', function(socket){
     })
 })
 
-http.listen(3000, ()=>{
+http.listen(port, ()=>{
     console.log(`Server is running on port 3000`);
 });
