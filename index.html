@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>live-chat</title>
+    <style>
+         body {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    #message-container {
+      width: 80%;
+      max-width: 1200px;
+    }
+
+    #message-container div {
+      background-color: #CCC;
+      padding: 5px;
+    }
+
+    #message-container div:nth-child(2n) {
+      background-color: #FFF;
+    }
+
+    #send-container {
+      position: fixed;
+      padding-bottom: 30px;
+      bottom: 0;
+      background-color: white;
+      max-width: 1200px;
+      width: 80%;
+      display: flex;
+    }
+
+    #message-input {
+      flex-grow: 1;
+    }
+    </style>
+</head>
+<body>
+    <div id="message-container">
+
+    </div>
+    <form action="" id="send-container">
+        <input type="text" name="" id="name" placeholder="write your name here ..." onchange="disable()">
+        <input type="text" name="" id="message" placeholder="write your message here ...">
+        <button type="submit" id="send-btn">Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect();
+        const messageContainer = document.getElementById('message-container');
+        const messageForm = document.getElementById('send-container');
+        const messageInput = document.getElementById('message');
+        const name = document.getElementById('name');
+      
+
+        socket.on('chat-message', data =>{
+            appendMessage(data);
+        })
+
+        messageForm.addEventListener('submit', e =>{
+            e.preventDefault();                         // preventing refreshing the page everytime we send message
+            const message = messageInput.value;         // getting message input
+
+            // passing name and message to sockt io server
+            socket.emit('send-chat-message', {message: message, name: name.value});  // passing multiple parameters as key value pair 
+            messageInput.value = '';                    // after sending we will empty the message inputbox
+        })
+
+        function appendMessage(data) {
+            const messageElement = document.createElement('div');
+            messageElement.innerText = `${data.name} : ${data.message}`;
+            messageContainer.append(messageElement);
+        }
+        
+        function disable(){
+          if(name.value != ''){
+          name.disabled = true;
+          }
+        }
+    </script>
+</body>
+</html>
